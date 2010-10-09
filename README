@@ -1,0 +1,35 @@
+Bookmark Main Application
+http://github.com/wschwarz/Bookmark-Project
+
+Purpose
+  -Provide intuitive grouping of bookmarks (hopefully drag/drop interface)
+    i.e. by project, by topic, by date-range etc.
+  -Provide tagging
+    categorical as well as useful attributes such as read/unread and for {person}
+  -Provide auto-complete searching
+  ------Possible Additions -------
+  -Provide suggestions based on already bookmarked pages
+  -Sharing features (integration with social networks etc.)
+  
+Progress
+  -Receiver service (from extension) - added
+  -Db access module - in progress
+  -Display page - in progress
+  
+Tasks
+  -Add CRUD features
+  -Decide on interface, implement
+  -Add grouping capabilites
+  -Add searching
+  
+Description:
+  This project arose from a personal need for better organization of my current 
+and future bookmarks as well as the desire to try out new developmental tools 
+(primarily learning how to build Chrome extensions and using Mongo DB). This 
+application is relient on a user utilizing the corresponding chrome extension
+(located http://github.com/wschwarz/BookmarkChromeExtension). Current development
+is in PHP but a possible rewrite in ROR is being considerd (to learn a new language).
+The feature list is subject to change based on development time available and 
+each feature's priority.
+
+In Progress 
