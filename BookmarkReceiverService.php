@@ -50,4 +50,5 @@ else if (strstr($_SERVER["CONTENT_TYPE"], "text/xml") != FALSE) {
 	echo $entry["title"] . " added!";
 }
 else echo "Invalid Post data <br />";
+$db->close();
 ?>

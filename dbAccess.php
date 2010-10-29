@@ -3,11 +3,12 @@
 class db {
 	//access variable
 	protected $collection;
+	protected $connection;
 	
 	//db initialization
 	public function __construct($serverName="", $dbName="bookmarks", $collectionName="entries") {
-		$connection = new Mongo(); //personal mongo db server
-		$db = $connection->$dbName;
+		$this->connection = new Mongo(); //personal mongo db server
+		$db = $this->connection->$dbName;
 		$collection = $db->$collectionName;
 		$this->collection = $collection;
 	}
@@ -38,7 +39,11 @@ class db {
 	
 	//deletes a single entry
 	public function delete_entry($entryId) {
-		$this->collection->remove(array('_id' => $entryId), array("justOne", true));
+		return $this->collection->remove(array('_id' => new MongoId($entryId)), array("justOne", true));
+	}
+	
+	public function close() {
+		$this->connection->close();
 	}
 }
 
