@@ -12,7 +12,25 @@ class Bookmarks extends Controller {
 	}
 	
 	function LoadBookmarks() {
-		$data['resultArray'] = $this->Bookmarks_model->getAll();
+		$data['resultArray'] = array();
+		if ($this->session->userdata('page') && $this->input->post('pageDirection') ) {
+			if ($this->input->post('pageDirection') == 'forward') {
+				//$data['resultArray'] = $this->Bookmarks_model->getAll(($this->session->userdata('page') + 1) * $this->session->userdata('pageSize'), $this->session->userdata('pageSize'));
+				echo ($this->session->userdata('page') + 1) * $this->session->userdata('pageSize');
+			}
+			else if ($this->input->post('pageDirection') == 'back' && $this->session->userdata('page') > 1)
+				$data['resultArray'] = $this->Bookmarks_model->getAll($this->session->userdata('page') - 1, $this->session->userdata('pageSize'));
+			else
+				$data['resultArray'] = $this->Bookmarks_model->getAll();
+		}
+		else if ($this->session->userdata('page')) {
+			$data['resultArray'] = $this->Bookmarks_model->getAll($this->session->userdata('page'), $this->session->userdata('pageSize'));
+		}
+		else {
+			$this->session->set_userdata(array('page' => 1));
+			$this->session->set_userdata(array('pageSize' => 20));
+			$data['resultArray'] = $this->Bookmarks_model->getAll($this->session->userdata('page'), $this->session->userdata('pageSize'));
+		}
 		$this->load->view('listTemplate', $data);
 	}
 	
@@ -53,6 +71,18 @@ class Bookmarks extends Controller {
 		else {
 			$data['resultArray'] = $this->Bookmarks_model->getAll();
 			$this->load->view('listTemplate', $data);
+		}
+	}
+	
+	function SetRead() {
+		if ($this->input->post('id')) {
+			print_r($this->Bookmarks_model->toggleRead($this->input->post('id')) . " was changed.");
+		}
+		else if ($this->input->get('id')) {
+			print_r($this->Bookmarks_model->toggleRead($this->input->get('id')) . " was changed.");
+		}
+		else {
+			print_r("Controller error occurred");
 		}
 	}
 }

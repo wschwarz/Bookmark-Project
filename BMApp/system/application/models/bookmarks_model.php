@@ -10,20 +10,27 @@ class Bookmarks_model extends Model {
 		parent::Model();
 	}
 	
-	function Initialize($serverName="", $dbName="bookmarks", $collectionName="entries") {
-		$this->connection = new Mongo(); //personal mongo db server
+	function Initialize($serverName="www.horribad.com:27017", $dbName="bookmarks", $collectionName="entries") {
+		$this->connection = new Mongo($serverName); //personal mongo db server
 		$db = $this->connection->$dbName;
 		$collection = $db->$collectionName;
 		$this->collection = $collection;
 	}
 	
 	//pull all entries and return as array
-	function getAll() {
+	function getAll($rangeStart=0, $rangeEnd=0) {
 		$this->Initialize();
 		$cursor = $this->collection->find();
 		$resultArray = array();
+		$counter = 0;
 		while ($cursor->hasNext()) {
-			array_push($resultArray, $cursor->getNext());
+			if ($rangeEnd == 0 && $rangeStart == 0)
+				array_push($resultArray, $cursor->getNext());
+			else if ($counter >= $rangeStart && $counter <= $rangeEnd)
+				array_push($resultArray, $cursor->getNext());
+			else
+				$cursor->getNext();
+			$counter += 1;
 		}
 		return $resultArray;
 		$this->close();
@@ -73,6 +80,30 @@ class Bookmarks_model extends Model {
 	function delete_entry($entryId) {
 		$this->Initialize();
 		return $this->collection->remove(array('_id' => new MongoId($entryId)), array("justOne", true));
+		$this->close();
+	}
+	
+	function toggleRead($id) {
+		try {
+			$this->Initialize();
+			$id = new MongoId($id);
+			$read = $this->collection->findOne(array("_id" => $id));
+			if ($read['read'] == "No") {
+				if ($this->collection->update(array("_id" => $id), array('$set' => array("read" => "Yes"))))
+					return $id;
+				else
+					return "Model {case: no} error occurred";
+			}
+			else if ($read['read'] == "Yes") {
+				if ($this->collection->update(array("_id" => $id), array('$set' => array("read" => "No"))))
+					return $id;
+				else
+					return "Model {case: yes} error occurred";
+			}
+		}
+		catch(MongoException $e) {
+			return "Query Failed: $e";
+		}
 		$this->close();
 	}
 	
