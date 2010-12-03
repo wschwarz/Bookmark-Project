@@ -13,22 +13,24 @@ class Bookmarks extends Controller {
 	
 	function LoadBookmarks() {
 		$data['resultArray'] = array();
-		if ($this->session->userdata('page') && $this->input->post('pageDirection') ) {
-			if ($this->input->post('pageDirection') == 'forward') {
-				//$data['resultArray'] = $this->Bookmarks_model->getAll(($this->session->userdata('page') + 1) * $this->session->userdata('pageSize'), $this->session->userdata('pageSize'));
-				echo ($this->session->userdata('page') + 1) * $this->session->userdata('pageSize');
+		//$data['resultArray'] = $this->Bookmarks_model->getAll();
+		if ($this->session->userdata('page') && $this->session->userdata('pageSize') && $this->session->userdata('totalEntries')) {
+			if ($this->input->post('pageDirection') == 'forward' && (($this->session->userdata('page') + 1) * $this->session->userdata('pageSize')) < $this->session->userdata('totalEntries')) {
+				$data['resultArray'] = $this->Bookmarks_model->getAll($this->session->userdata('page') + 1, $this->session->userdata('pageSize'));
+				$this->session->set_userdata(array('page' => $this->session->userdata('page') + 1));
 			}
-			else if ($this->input->post('pageDirection') == 'back' && $this->session->userdata('page') > 1)
+			else if ($this->input->post('pageDirection') == 'back' && ($this->session->userdata('page') - 1) > 0) {
 				$data['resultArray'] = $this->Bookmarks_model->getAll($this->session->userdata('page') - 1, $this->session->userdata('pageSize'));
-			else
-				$data['resultArray'] = $this->Bookmarks_model->getAll();
-		}
-		else if ($this->session->userdata('page')) {
-			$data['resultArray'] = $this->Bookmarks_model->getAll($this->session->userdata('page'), $this->session->userdata('pageSize'));
+				$this->session->set_userdata(array('page' => $this->session->userdata('page') - 1));
+			}
+			else {
+				$data['resultArray'] = $this->Bookmarks_model->getAll($this->session->userdata('page'), $this->session->userdata('pageSize'));
+			}
 		}
 		else {
 			$this->session->set_userdata(array('page' => 1));
 			$this->session->set_userdata(array('pageSize' => 20));
+			$this->session->set_userdata(array('totalEntries' => $this->Bookmarks_model->getTotal()));
 			$data['resultArray'] = $this->Bookmarks_model->getAll($this->session->userdata('page'), $this->session->userdata('pageSize'));
 		}
 		$this->load->view('listTemplate', $data);

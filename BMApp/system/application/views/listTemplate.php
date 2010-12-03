@@ -39,5 +39,6 @@
 <br />
 <div class="PagerLinks">
 	<a href="#" onclick="Link('back');"><</a>
+	<?php echo " Page: ". $this->session->userdata('page'). " "; ?>
 	<a href="#" onclick="Link('forward');">></a>
 </div>

@@ -1,5 +1,5 @@
 $(document).ready( function() {
-	$.get("Bookmarks/LoadBookmarks/", function(result) { $("#listing").html(result);});
+	$.get("Bookmarks/LoadBookmarks", function(result) { $("#listing").html(result);});
 	$("#delete").click( function() {
 		if (confirm('Are you sure you want to delete?')) {
 			$("input:checked").each(function() {
@@ -38,7 +38,11 @@ $(document).ready( function() {
 function Link(direction) {
 	if (direction == 'forward')
 	{
-		$.get("Bookmarks/LoadBookmarks", {pageDirection: "forward"}, function(result) { $("#listing").html(result);});
+		$.post("Bookmarks/LoadBookmarks", {pageDirection: "forward"}, function(result) { $("#listing").html(result);});
+	}
+	else if (direction == 'back')
+	{
+		$.post("Bookmarks/LoadBookmarks", {pageDirection: "back"}, function(result) { $("#listing").html(result);});
 	}
 }
 function ReadClicked(readObj) {
