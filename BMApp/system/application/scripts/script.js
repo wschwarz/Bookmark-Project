@@ -1,5 +1,5 @@
 $(document).ready( function() {
-	$.get("Bookmarks/LoadBookmarks", function(result) { $("#listing").html(result);});
+	$.get("Bookmarks/LoadBookmarks/", function(result) { $("#listing").html(result);});
 	$("#delete").click( function() {
 		if (confirm('Are you sure you want to delete?')) {
 			$("input:checked").each(function() {
@@ -33,7 +33,26 @@ $(document).ready( function() {
 			}
 		});
 	});
+	$("button, input:submit, a").button();
 });
+function Link(direction) {
+	if (direction == 'forward')
+	{
+		$.get("Bookmarks/LoadBookmarks", {pageDirection: "forward"}, function(result) { $("#listing").html(result);});
+	}
+}
+function ReadClicked(readObj) {
+	$.ajax({
+		type: "POST",
+		url: "Bookmarks/SetRead",
+		data: "id=" + readObj,
+		contentType: 'application/x-www-form-urlencoded',
+		success: function(result) {
+			$("#messages").append(result + "<br />");
+		}
+	})
+	setTimeout("$.get('Bookmarks/LoadBookmarks', function(result) { $('#listing').html(result);})", 1000);
+}
 function Sort(fieldobject) {
 	var direction = 1;
 	if (readCookie("direction") == null)
