@@ -41,6 +41,21 @@ class Bookmarks_model extends Model {
 		}
 	}
 	
+	function filterPages($page, $pageSize, $beginArray) {
+		$resultArray = array();
+		$counter = 0;
+		if (count($beginArray) >= $pageSize * $page) {
+			foreach($beginArray as $row) {
+				if ($page == 0 && $pageSize == 0)
+					array_push($resultArray, $row);
+				else if ($counter >= (($page - 1) * $pageSize) && $counter <= ($page * $pageSize))
+					array_push($resultArray, $row);
+				$counter += 1;
+			}	
+		}
+		return $resultArray;
+	}
+	
 	function getTotal() {
 		try {
 			$cursor = $this->collection->find();

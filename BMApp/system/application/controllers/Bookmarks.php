@@ -62,16 +62,20 @@ class Bookmarks extends Controller {
 	}
 	
 	function Query() {
+		$this->checkSessions();
 		if ($this->input->post('query')) {
 			$data['resultArray'] = $this->Bookmarks_model->query($this->input->post('query'));
+			$data['resultArray'] = $this->Bookmarks_model->filterPages($this->session->userdata('page'), $this->session->userdata('pageSize'), $data['resultArray']);
 			$this->load->view('listTemplate', $data);
 		}
 		else if ($this->input->get('query')) {
 			$data['resultArray'] = $this->Bookmarks_model->query($this->input->get('query'));
+			$data['resultArray'] = $this->Bookmarks_model->filterPages($this->session->userdata('page'), $this->session->userdata('pageSize'), $data['resultArray']);
 			$this->load->view('listTemplate', $data);
 		}
 		else {
 			$data['resultArray'] = $this->Bookmarks_model->getAll();
+			$data['resultArray'] = $this->Bookmarks_model->filterPages($this->session->userdata('page'), $this->session->userdata('pageSize'), $data['resultArray']);
 			$this->load->view('listTemplate', $data);
 		}
 	}
@@ -85,6 +89,17 @@ class Bookmarks extends Controller {
 		}
 		else {
 			print_r("Controller error occurred");
+		}
+	}
+	
+	function checkSessions() {
+		if ($this->session->userdata('page') && $this->session->userdata('pageSize') && $this->session->userdata('totalEntries')) {
+			return true;
+		}
+		else {
+			$this->session->set_userdata(array('page' => 1));
+			$this->session->set_userdata(array('pageSize' => 20));
+			$this->session->set_userdata(array('totalEntries' => $this->Bookmarks_model->getTotal()));
 		}
 	}
 }
