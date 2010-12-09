@@ -12,8 +12,8 @@
 		$lastModified = $row["last_modified"]=="undefined"?"N/A":date('l, F d, Y', ($row["last_modified"]/1000));
 		$addDate = $row["add_date"]=="undefined"?"N/A":date('l, F d, Y', ($row["add_date"]/1000));
 		$title = $row["title"];
-		if (strlen($title) > 40)
-			$title = substr($title, 0, 40) . "...";
+		if (strlen($title) > 35)
+			$title = substr($title, 0, 35) . "...";
 		echo "<tr>";
 		echo "<td><input type='checkbox' value='" . $row["_id"] . "' /></td>";
 		echo "<td><a href='" .$row["link"] . "'>" . $title . "</a></td>";

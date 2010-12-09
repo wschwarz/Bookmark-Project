@@ -33,7 +33,7 @@ $(document).ready( function() {
 			}
 		});
 	});
-	$("button, input:submit, a").button();
+	$("button, input:submit").button();
 });
 function Link(direction) {
 	if (direction == 'forward')

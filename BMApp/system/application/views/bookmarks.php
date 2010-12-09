@@ -12,18 +12,28 @@
 	</head>
 	<body>
 		<div class="container">
-		<p><a class="ui-button ui-button-text-only ui-widget ui-state-default ui-corner-all" href="http://www.horribad.com">Home</a></p>
-		<h1>B.M. Listerizer</h1>
-		<div id="messages">
-		</div>
-		<button class="ui-button ui-button-text-only ui-widget ui-state-default ui-corner-all" id="Delete">
-   			<span class="ui-button-text">Delete</span>
-		</button>
-		<div style="float:right; position:relative; margin-right: 50px;">
-			<label>Search: <input type='text' name='SearchField' id='SearchField' /></label>
-		</div>
-		<div id="listing">
-		</div>
+			<h1 class="title">B.M. Listerizer</h1>
+			<div class="top_menu">
+				<ul>
+					<li><a class="ui-button ui-button-text-only ui-widget ui-state-default" href="http://www.horribad.com">Home</a></li>
+					<li><a class="ui-button ui-button-text-only ui-widget ui-state-default" href="#">Categories</a></li>
+				</ul>
+			</div>
+			<div id="messages">
+			</div>
+			
+			<div style="float:right; position:relative; ">
+				<label>Search: <input type='text' name='SearchField' id='SearchField' style="width: 250px;"/></label>
+			</div>
+			<br /> <br />
+			<div id="listing">
+			</div>
+			<br />
+			<button id="Delete">
+	   			Delete
+			</button>
+			<br />
+			<br />
 		</div>
 	</body>
 </html>

@@ -1,20 +1,23 @@
 body {
 	width: 1000px;
+	height: 100%;
 	margin: 0 auto;
-	background-color:#F2F2F2;
 	padding: 0;
-	font: 62.5% Times New Roman, Times New Roman, Times, serif;
+	font-family: segoe ui, Arial, sans-serif; font-size: 1.1em;
 	text-align: center;
+	background-color: #f5f3e5;
 }
 .container {
 	text-align:left;
+	background-color: #e8e1b5;
+	padding-left: 50px;
+	padding-right: 50px;
 }
 ul {
 	margin: 0 0 0 25px;
 	padding: 0;
 	list-style-type: none;
 	display:inline;
-	
 }
 ul li a{
 	text-decoration: none;
@@ -22,7 +25,7 @@ ul li a{
 table {
 	border-collapse: collapse;
 	border-spacing: 0px;
-	width: 950px;
+	width: 900px;
 }
 th {
 	padding: 5px;
@@ -41,11 +44,10 @@ h1 {
 	font-size: 3em;
 	text-align: center;
 }
-
-a:link {color: #000000; text-decoration: none;}
-a:active {color: #0000ff; text-decoration: none;}
-a:visited {color: #008000; text-decoration: none;}
-a:hover {color: #ff0000; text-decoration: none; }
+a:link {color: #000000; text-decoration: none; font-color: white;}
+a:active {color: #0000ff; text-decoration: none; font-color: white;}
+a:visited {color: #008000; text-decoration: none; font-color: white;}
+a:hover {color: #ff0000; text-decoration: none; font-color: white;}
 .demoHeaders { margin-top: 2em; }
 #dialog_link {padding: .4em 1em .4em 20px;text-decoration: none;position: relative;}
 #dialog_link span.ui-icon {margin: 0 5px 0 0;position: absolute;left: .2em;top: 50%;margin-top: -8px;}
@@ -53,9 +55,39 @@ ul#icons {margin: 0; padding: 0;}
 ul#icons li {margin: 2px; position: relative; padding: 4px 0; cursor: pointer; float: left;  list-style: none;}
 ul#icons span.ui-icon {float: left; margin: 0 4px;}
 .PagerLinks { 
-	float: right !important; 
-	text-align: right; 
 	margin-right: 50px;
 	position: relative;
 	font-size: 12pt;
 } 
+.Title {
+	font-family: geneva, sans-serif;
+	text-align: left;
+	font-size: 36pt;
+	margin-bottom: 10px;
+	margin-top: 0px;
+	padding-top: 10px;
+}
+.top_menu {
+	background-color: #327e04;
+	margin-bottom: 20px;
+	font-family: segoe ui, Arial, sans-serif; font-size: 1.1em;
+}
+.top_menu a {
+	border: 1px solid black;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-bottom: 5px;
+}
+.top_menu a:hover {
+	color: #FFFFFF;
+}
+.top_menu ul {
+	padding: 0px;
+	margin: 0px;
+}
+.top_menu ul li {
+	display: inline;
+	padding: 0px;
+	margin: 0px;
+	float: left;
+}
